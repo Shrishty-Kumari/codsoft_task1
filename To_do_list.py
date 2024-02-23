@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import pickle
 root = Tk()
-root.geometry("500x500")
+root.geometry("500x530")
 root.config(bg="light sky blue")
 root.title("To-Do List")
 root.resizable(False, False)
@@ -27,16 +27,17 @@ def delete_task():
 
 def save_tasks():
     tasks = listbox.get(0, listbox.size())
-    pickle.dump(tasks, open("task.dat", "wb"))
+    pickle.dump(tasks, open("Shrishty.dat", "wb"))
 def edit_tasks():
     try:
-        tasks = pickle.edit(open("task.dat", "rb"))
+        task_index =pickle.load(open("Shrishty.dat", "rb"))
         listbox.delete(0, END)
-        for task in tasks:
+        for task in task_index:
             listbox.insert(END, task)
     except:
-        messagebox.showwarning(title="Warning!", message="Cannot find tasks.dat.")    
-
+        messagebox.showwarning(title="Warning!", message="Cannot find Shrishty.dat.")    
+def close():    
+    root.destroy() 
 frame = Frame(root)
 frame.pack()
 
@@ -63,4 +64,8 @@ edit.pack(pady="10px")
 
 save = Button(root, text="Save ",bg="sky blue", fg="black", font=("ubuntu", 10), cursor="hand2", width=20, command=save_tasks)
 save.pack(anchor="center")
+closed= Button(root, text="close ",bg="sky blue", fg="black", font=("ubuntu", 10), cursor="hand2", width=20, command=close)
+closed.pack(pady="10px")
 root.mainloop()
+       
+
